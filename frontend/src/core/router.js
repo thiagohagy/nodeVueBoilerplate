@@ -33,16 +33,28 @@ const router =  new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: {
+        humanName: 'Início',
+        pathAlias: 'Início'
+      }
     },
     {
       path: '/about',
       name: 'About',
       component: About,
+      meta: {
+        humanName: 'Sobre',
+        pathAlias: 'Inicio / Sobre'
+      }
     },
     {
       path: '/login',
       name: 'Login',
       component: Login,
+      meta: {
+        humanName: 'Login',
+        pathAlias: 'Usuários / Login'
+      }
     },
   ],
 });

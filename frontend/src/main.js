@@ -22,8 +22,6 @@ import './assets/bootstrap.min.css';
 
 library.add(fas)
 
-
-
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.prototype.$http = http;

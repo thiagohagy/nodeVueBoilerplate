@@ -46,18 +46,8 @@
         <li class="list-inline-item">Phasellus iaculis</li> /
         <li class="list-inline-item">Nulla volutpat</li>
       </ul>
-        <!-- <router-link
-          v-for="(crumb, key) in crumbs"
-          :key="crumb.name"
-          tag="li"
-          :to="{ name: crumb.name, params: $route.params }"
-          class="breadcrumb-item"
-          :class="{ active: isLast(key) }"
-        >
-          <a>{{crumb.meta.humanName}}</a>
-
-        </router-link> -->
     </div>
+
   </nav>
 </template>
 
@@ -84,9 +74,8 @@ export default {
       return this.$store.getters.isLogged;
     },
   },
-  beforeMount() {
+  mounted() {
     this.links = this.$router.options.routes;
-    // this.crumbs = this.$route.options;
   }
 };
 </script>
