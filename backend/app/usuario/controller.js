@@ -51,7 +51,6 @@ exports.edit = async (req, res) => {
   model.email = req.body.email;
   model.name = req.body.name;
   model.role = req.body.role;
-  model.empresa = req.body.empresa;
   model.lastUpdateBy = req.decoded._id;
 
   const [err, data] = await to(model.save());

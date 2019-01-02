@@ -37,13 +37,6 @@ app.use('/api/v1', jwt);
 
 /*Modulos*/
 jwt.use('/users', require('./app/usuario'));
-jwt.use('/clientes', require('./app/clientes'));
-jwt.use('/centrocustos', require('./app/centrocustos'));
-jwt.use('/numerosNConfiaveis', require('./app/numerosNConfiaveis'));
-jwt.use('/sms', require('./app/sms'));
-jwt.use('/enviosAvulso', require('./app/enviosAvulso'));
-jwt.use('/campanhas', require('./app/campanhas'));
-jwt.use('/tipoCampanhas', require('./app/tipoCampanhas'));
 
 var id = Number(process.env.id);
 var hit = 0;
