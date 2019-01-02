@@ -1,0 +1,7 @@
+module.exports = {
+  secret: '198209d1298d12',
+  database: 'mongodb://127.0.0.1:27017/v3',
+  initialPort: 8357,
+  passFixture: '1',
+  uploadPath: '/var/www/v3-root/backend/uploads'
+};
