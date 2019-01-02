@@ -3,14 +3,12 @@ VueBase is a Boilerplate for vuejs, a quick way to create administrative systems
 # Technologies
 
 * Backend in nodejs
-* Frontend in javascript (Vuejs template webpack)
+* Frontend in javascript (Vuejs)
 
 # Support
 
 * Uploads with authenticated routes
 * Https
-
-lets check this demo: https://vuebase.rubens.ninja
 
 login: _admin_, password: _admin_
 
@@ -29,7 +27,7 @@ nodemon index.js
 cd ..
 cd frontend
 npm install
-npm run dev
+npm run serve
 ```
 
 ## Go to:
@@ -42,6 +40,4 @@ http://localhost:9090/api/fixture/usuario/1
 
 http://localhost:8080
 
-Any help or pull request is welcome!
-
-:airplane:
+And thats all folks!

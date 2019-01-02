@@ -5,8 +5,8 @@ upstream vue_hosts {
 
 server {
     listen 80;
-    root /var/www/vuebase/frontend/dist;
-    server_name vuebase.rubens.ninja;
+    root /var/www/yourPath/frontend/dist;
+    server_name your.server.name;
 
     location /api {
         proxy_set_header X-Real-IP  $remote_addr;
