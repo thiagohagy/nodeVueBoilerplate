@@ -1,0 +1,9 @@
+.dropdown-menu {
+  padding: 0px
+}
+.dropdown-item {
+  padding: 1.0rem 1.5rem;
+}
+.dropdown-nav-link {
+  color: #222 !important
+}

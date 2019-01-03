@@ -1,54 +1,72 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" v-if="isLogged">
-    <router-link to="/" class="navbar-brand">Vue Base 3.0</router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <router-link to="/" class="nav-link">Home</router-link>
+  <b-navbar toggleable="md" type="dark" variant="info"  class="navbar navbar-expand-lg navbar-dark bg-dark" v-if="isLogged">
+
+  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+   
+    <b-navbar-brand href="#">
+      <router-link to="/" class="navbar-brand">Vue Show</router-link>
+    </b-navbar-brand>
+
+     <b-navbar-nav id="myBredcrumb">
+        <b-nav-text >
+          {{breadcrumb}}
+        </b-nav-text>
+      </b-navbar-nav> 
+
+    <b-collapse is-nav id="nav_collapse">
+
+      <!-- simples routes -->
+      <b-navbar-nav>
+        <b-nav-item 
+        href="#"
+        class="nav-item" 
+        v-for="link in links" 
+        :key='link.name' 
+        v-if='!link.children && link.meta.showOnNav'>
+          <router-link :to="link.path" class="nav-link">{{link.meta.humanName}}</router-link>
+        </b-nav-item>        
+      </b-navbar-nav>
+
+      <!-- nested routes -->        
+      <b-navbar-nav>
+        <b-nav-item-dropdown 
+        class="nav-item" 
+        :text="link.meta.humanName" 
+        v-for="link in links" 
+        :key='link.name' 
+        v-if='link.children && link.meta.showOnNav'>
+          <b-dropdown-item 
+            href="#"  
+            v-for="sublink in link.children"
+            v-if='sublink.meta.showOnNav'
+          >
+            <router-link :to="sublink.path" class="nav-link dropdown-nav-link">{{sublink.meta.humanName}}</router-link>
+          </b-dropdown-item>
+        </b-nav-item-dropdown> 
+      </b-navbar-nav>
+
+     
+
+      <!-- 
+        <b-nav-form>
+          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form> 
+      -->
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item href="#" right>
+          <li class="nav-link" @click="logout()">
+            Logout
+            <font-awesome-icon icon="sign-out-alt" />
           </li>
-          <li class="nav-item">
-            <router-link to="/about" class="nav-link">About</router-link>
-          </li>
-
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Cadastro
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link to="/clientes" class="dropdown-item">Clientes</router-link>
-              <router-link to="/centrocustos" class="dropdown-item">Centro de custos</router-link>
-              <router-link to="/numerosNConfiaveis" class="dropdown-item">Numeros não confiaveis</router-link>
-                          <router-link to="/tipoCampanhas" class="dropdown-item">Tipos de Campanhas</router-link>
-              <router-link to="/users" class="dropdown-item">Usuários</router-link>
-            </div>
-          </li> -->
-
-        </ul>
-
-        <ul class="navbar-nav my-2 my-md-0 mr-md-3 ">
-          <li class="nav-item">
-            <li class="nav-link" @click="logout()">
-              Logout
-              <font-awesome-icon icon="exit" />
-            </li>
-          </li>
-        </ul>
-    </div>
-
-    <div class="myBredcrumb">
-       <ul class="list-inline"> <!--  create dinamic raoute match here -->
-        <li class="list-inline-item">Start</li> /
-        <li class="list-inline-item">Lorem ipsum</li> /
-        <li class="list-inline-item">Phasellus iaculis</li> /
-        <li class="list-inline-item">Nulla volutpat</li>
-      </ul>
-    </div>
-
-  </nav>
+        </b-nav-item>
+      </b-navbar-nav>
+    
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
@@ -59,15 +77,13 @@ export default {
   data() {
     return {
       links: [],
+      breadcrumb: '',
     };
   },
   methods: {
     logout() {
       this.$store.commit('user_logout');
     },
-    showOnNav(link) {
-      return link.meta && link.meta.showOnNav;
-    }
   },
   computed: {
     isLogged() {
@@ -76,20 +92,32 @@ export default {
   },
   mounted() {
     this.links = this.$router.options.routes;
+  },
+  watch: {
+    '$route' (to, from) {
+      this.breadcrumb = this.$route.meta.pathAlias;
+    }
   }
 };
 </script>
 
 <style scoped>
-.myBredcrumb{
+#myBredcrumb{
   position: absolute;
-  top: 60px;
-  left: 188px;
+  top: 65px;
+  left: 200px;
+}
+#myBredcrumb span {
   font-weight: 100;
-  font-size: 10px;
-  color: #818181
+  font-size: 11px;
+  color: #777
 }
 .collapse{
   width: 100%
+}
+
+.nomargin {
+  margin:0px;
+  padding:0px;
 }
 </style>
