@@ -24,30 +24,30 @@
         v-for="link in links" 
         :key='link.name' 
         v-if='!link.children && link.meta.showOnNav'>
-          <router-link :to="link.path" class="nav-link">{{link.meta.humanName}}</router-link>
+          <router-link :to="{ name: link.name }" class="nav-link">{{link.meta.humanName}}</router-link>
         </b-nav-item>        
       </b-navbar-nav>
 
       <!-- nested routes -->        
       <b-navbar-nav>
         <b-nav-item-dropdown 
-        class="nav-item" 
-        :text="link.meta.humanName" 
-        v-for="link in links" 
-        :key='link.name' 
-        v-if='link.children && link.meta.showOnNav'>
+          class="nav-item" 
+          :text="link.meta.humanName" 
+          v-for="link in links" 
+          :key='link.name' 
+          v-if='link.children && link.meta.showOnNav'
+        >
           <b-dropdown-item 
             href="#"  
             v-for="sublink in link.children"
             v-if='sublink.meta.showOnNav'
+            :key='sublink.name'
           >
-            <router-link :to="sublink.path" class="nav-link dropdown-nav-link">{{sublink.meta.humanName}}</router-link>
+            <router-link :to="{ name: sublink.name }" class="nav-link dropdown-nav-link">{{sublink.meta.humanName}}</router-link>
           </b-dropdown-item>
         </b-nav-item-dropdown> 
       </b-navbar-nav>
-
-     
-
+    
       <!-- 
         <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
@@ -105,7 +105,7 @@ export default {
 #myBredcrumb{
   position: absolute;
   top: 65px;
-  left: 200px;
+  left: 165px;
 }
 #myBredcrumb span {
   font-weight: 100;

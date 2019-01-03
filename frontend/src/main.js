@@ -41,7 +41,6 @@ Vue.use(Toasted, {
   duration: 5000,
   // theme: 'primary',
   // theme: 'bubble',
-  // theme: 'toasted-primary',
   theme: 'outline',
   icon: {
     name: 'done',

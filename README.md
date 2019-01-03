@@ -3,7 +3,7 @@ VueBase is a Boilerplate for vuejs, a quick way to create administrative systems
 # Technologies
 
 * Backend in nodejs
-* Frontend in javascript (Vuejs)
+* Frontend in javascript (Vuejs) with BootstrapVue
 
 # Support
 

@@ -10,10 +10,6 @@ const Schema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Usuario'
   },
-  cliente: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Cliente'
-  },
   lastUpdateBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'Usuario'

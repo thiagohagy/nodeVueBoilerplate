@@ -36,6 +36,7 @@ const UsersForm = (resolve) => {
     resolve(require('././../components/users/Form.vue'));
   });
 };
+
 /* eslint-enable global-require */
 
 
@@ -51,8 +52,8 @@ const router = new Router({
       name: 'Home',
       component: Home,
       meta: {
-        humanName: 'Início',
-        pathAlias: 'Início',
+        humanName: 'Home',
+        pathAlias: 'Home',
         showOnNav: true,
       },
     },
@@ -61,8 +62,8 @@ const router = new Router({
       name: 'About',
       component: About,
       meta: {
-        humanName: 'Sobre',
-        pathAlias: 'Inicio / Sobre',
+        humanName: 'About',
+        pathAlias: 'Home / About',
         showOnNav: true,
       },
     },
@@ -72,37 +73,44 @@ const router = new Router({
       component: Login,
       meta: {
         humanName: 'Login',
-        pathAlias: 'Usuários / Login',
+        pathAlias: 'Users / Login',
       },
     },
     {
       path: '/users',
+      component: {
+        render(c) { return c('router-view') } /// then I dont need a parent component file
+      },
       meta: {
-        humanName: 'Usuários',
+        humanName: 'Users',
         showOnNav: true,
       },
       children: [
         {
-          path: '/users',
+          path: '',
           name: 'Users',
           component: Users,
           meta: {
-            humanName: 'Listagem',
-            pathAlias: 'Usuários / Listagem',
+            humanName: 'List',
+            pathAlias: 'Users / List',
             showOnNav: true,
           },
         },
         {
-          path: '/users/form',
+          path: 'form/:id?',
+          props: true, // pass paramas as props, then you dont need to use $watch
           name: 'UsersForm',
           component: UsersForm,
           meta: {
-            humanName: 'Novo usuário',
-            pathAlias: 'Usuários / Formulário',
+            humanName: 'Form',
+            pathAlias: 'Users / Form',
             showOnNav: true,
           },
         },
+        
+        
       ],
+    
     },
   ],
 });

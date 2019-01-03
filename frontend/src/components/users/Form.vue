@@ -1,34 +1,91 @@
 <template>
-  <div class="row">
-    <div class="col-sm">
-      One of three columns
-      <font-awesome-icon icon="coffee" />
+  <div class="container text-left" >
+    
+    <div class="text-center">
+      <h3>{{ pageTitle}}</h3>
     </div>
-    <div class="col-sm">
-      One of three columns
-      <font-awesome-icon icon="coffee" />
-    </div>
-    <div class="col-sm">
-      One of three columns
-      <font-awesome-icon icon="coffee" />
-    </div>
+
+    <b-form @submit.prevent="onSubmit" @reset="onReset">
+
+      <b-form-group id="emailLabel" label="Email address:" label-for="email" description="We'll never share your email with anyone else.">        
+        <b-form-input  id="email" type="email" v-model="form.email"  placeholder="Enter email"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group id="loginLabel" label="Login:" label-for="login" >        
+        <b-form-input id="login" type="text" v-model="form.login"  placeholder="An diferent and creative login"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group id="nameLabel" label="Your name:" label-for="name" >        
+        <b-form-input id="name" type="text" v-model="form.name"  placeholder="Name please"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group id="passwordLabel" label="Password:" label-for="password" >        
+        <b-form-input id="password" type="password" v-model="form.password"  placeholder="A complex password"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group id="passwordCLabel" label="Password confirm:" label-for="passwordC" >        
+      <b-form-input id="passwordC" type="password" v-model="form.passwordC" placeholder="An equally complex password" :state="(form.password == form.passwordC) && form.password "  class="error"></b-form-input>
+      </b-form-group> 
+
+      <b-form-group id="roleLabel" label="User role:" label-for="role" >        
+        <b-form-select v-model="form.role" :options="roles"  class="mb-3" id="role"/>
+      </b-form-group> 
+
+      <div class="text-center">
+        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </div>
+    </b-form> 
   </div>
 
+  
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
+  export default {
+    props:['id'],
+    data() {
+      return {
+        form:{
+          email: 'teste@test.com',
+          login: 'teste',
+          name: 'teste',
+          password: 'teste',
+          role: 'teste',
+        },
+        pageTitle: 'User registration',
+        roles:[
+          { value: 'admin' , text: 'Admin'},
+          { value: 'basic' , text: 'Basic'},
+        ]
+      }
+    },
+    methods: {
+      onSubmit(){
+        if (
+          this.form.email &&
+          this.form.login &&
+          this.form.name &&
+          this.form.password == this.form.passwordC &&
+          this.form.role
+        ) {
 
-export default {
-  name: 'home',
-  components: {
-    // HelloWorld,
-  },
-  mounted(){
-    this.$toasted.show('Error toast',{icon:'times', type: 'error'})
-    this.$toasted.show('Success toast',{icon:'check', type: 'success'})
-    this.$toasted.show('Info toast',{icon:'info', type: 'info'})
+          this.$http.post('v1/users', this.form).then( (response)=> {
+            console.log(response);
+          });
+
+        } else {
+          this.$toasted.show('Inform all fields, password and passord confirm must be equals',{icon:'times', type: 'error'})
+        }
+      },
+      onReset() { 
+        this.form = {};
+      }
+    },
+    mounted(){
+      if (this.id) {
+        this.pageTitle =  'User edit';
+      }
+    }
   }
-};
 </script>
