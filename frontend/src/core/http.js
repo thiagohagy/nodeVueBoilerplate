@@ -9,7 +9,7 @@ const instance = axios.create({
 
 // Intercept the request to make sure the token is injected into the header.
 instance.interceptors.request.use((config) => {
-  config.headers.Authorization = `${ls('authToken')}`;
+  config.headers.Authorization = `${ls('token')}`;
   app.$Progress.start();
   return config;
 });
@@ -34,6 +34,13 @@ const http = {
   put: (url, data) => instance.put(url, data),
   get: url => instance.get(url),
   delete: (url, data) => instance.delete(url, data),
+  getDropzoneConfig: (options) => {
+    return Object.assign(options, {
+      url: `${process.env.VUE_APP_API}/api/v1/upload`,
+      headers: { Authorization: ls('token') },
+      method: 'post',
+    })
+  }
 };
 
 export default http;

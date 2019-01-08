@@ -16,6 +16,7 @@ import http from './core/http';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'material-design-icons/iconfont/material-icons.css';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import './assets/fontAwesome/faall.css';
 import './assets/fontAwesome/fasolid.css';
 import './assets/bootstrap.custom.min.css';
