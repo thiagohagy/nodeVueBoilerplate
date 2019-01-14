@@ -30,7 +30,11 @@ exports.new = async (req, res) => {
   if (!err && data) {
     res.json({ success: true, data, err, form: req.body });
   } else {
-    res.json({ succsess: false, data, err, form: req.body });
+    if(err.code == 11000) {
+      res.json({ succsess: false, data, err: 'OPS!!! Pick another login, this one already exists', form: req.body });
+    } else {
+      res.json({ succsess: false, data, err: 'OPS!!! Some error has ocurred', form: req.body });
+    }
   }
 };
 

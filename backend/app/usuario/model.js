@@ -18,7 +18,12 @@ const Schema = mongoose.Schema({
   name: String,
   role: String,
   email: String,
-  ativo: { type: Boolean, default: true }
+  active: { type: Boolean, default: true },
+  avatar : {
+    filename: { type: String, default: '' },
+    mimetype: { type: String, default: '' },
+    folder: { type: String, default: '' },
+  }
 });
 
 Schema.pre('save', function(next) {
@@ -36,8 +41,5 @@ Schema.pre('save', function(next) {
     });
   });
 });
-
-var deepPopulate = require('mongoose-deep-populate')(mongoose);
-Schema.plugin(deepPopulate, {});
 
 module.exports = mongoose.model('Usuario', Schema);

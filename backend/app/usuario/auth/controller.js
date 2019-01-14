@@ -23,6 +23,7 @@ exports.login = async (req, res) => {
         beAToken._id = user._id;
         beAToken.nome = user.nome;
         beAToken.role = user.role;
+        beAToken.avatar = user.avatar;
 
         var token = jwt.sign(beAToken, config.secret, {
           expiresIn: '1d' // expires in 24 hours

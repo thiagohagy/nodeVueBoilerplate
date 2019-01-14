@@ -21,6 +21,8 @@ instance.interceptors.response.use(
     }
 
     app.$Progress.finish();
+
+    response = response.data;
     return response;
   },
   (error) => {

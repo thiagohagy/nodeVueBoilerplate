@@ -3,23 +3,12 @@ const rotas = express.Router();
 
 const controller = require('./controller');
 
+
 // UPLOAD
 const multer = require('multer');
 const config = require('../../config');
-// rotas.get('/image/:hash', controller.getImage);
-// const upload = multer({ dest: `${config.rootPath}/uploads`});
+const upload = multer({ dest: `${config.uploadPath}/temp`}); // multer dont let you change dest "on the fly"
 
-// rotas.post('/', multer({
-//     dest: `${config.rootPath}/uploads`,
-//     changeDest: (dest, req, res) => {
-//         console.log(dest);
-//         console.log(req);
-//     }
-// }), controller.upload);
-
-rotas.post('/', multer({
-    dest: `${config.rootPath}/uploads`
-}), controller.upload)
-
+rotas.post('/', upload.single('file'), controller.upload); // single file upload
 
 module.exports = rotas;

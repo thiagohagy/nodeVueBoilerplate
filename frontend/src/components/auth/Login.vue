@@ -40,7 +40,7 @@ export default {
     logar() {
       this.showError = false;
       this.$http.post('/login', this.form).then(response => {
-        if (response.data.success) {
+        if (response.success) {
           this.$store.commit('user_login',response);
         } else {
           this.showError = true;

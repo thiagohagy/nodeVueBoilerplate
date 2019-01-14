@@ -8,7 +8,7 @@ const state = {
 
 const mutations = {
   user_login(state, payload) {
-    ls('token', payload.data.token);
+    ls('token', payload.token);
     state.AUTH_TOKEN = payload.token;
     main.$router.push('/');
   },
