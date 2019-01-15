@@ -145,6 +145,7 @@
       },
     },
     mounted(){
+      console.log(this.id);
       if (this.id) {
         this.pageTitle =  'User edit';
       }

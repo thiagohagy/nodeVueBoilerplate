@@ -106,11 +106,8 @@ const router = new Router({
             pathAlias: 'Users / Form',
             showOnNav: true,
           },
-        },
-        
-        
+        },      
       ],
-    
     },
   ],
 });

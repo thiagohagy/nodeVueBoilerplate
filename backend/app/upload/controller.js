@@ -25,16 +25,15 @@ exports.upload = (req, res) => {
       destinationFolder: req.body.folder || 'temp'
     }
   });
-
 };
 
 exports.getFile = (req, res) => {
-  // res.setHeader('Content-Type', req.query.mimetype);
-  // const pathImg = path.join(`${config.uploadPath}/${req.params.folder}`, req.params.hash);
-  // const exist = fs.existsSync(pathImg);
-  // if (exist) {
-  //   fs.createReadStream(pathImg).pipe(res);
-  // } else {
-  //   res.end();
-  // }
+  res.setHeader('Content-Type', req.query.mimetype);
+  const pathImg = path.join(`${config.uploadPath}/${req.query.folder}`, req.query.filename);
+  const exist = fs.existsSync(pathImg);
+  if (exist) {
+    fs.createReadStream(pathImg).pipe(res);
+  } else {
+    res.end();
+  }
 };

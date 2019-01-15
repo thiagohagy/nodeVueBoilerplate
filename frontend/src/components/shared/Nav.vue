@@ -58,16 +58,16 @@
 
       <b-navbar-nav class="ml-auto ">
         <b-nav-item id="profileDropdown">
-          <b-nav-item-dropdown class="nav-item" text="token.name" right>
+          <b-nav-item-dropdown class="nav-item" :text="decoded.name || decoded.login" right>
             <b-dropdown-item href="#">
-              <router-link :to="{ name: 'userEdit' }" class="nav-link dropdown-nav-link">My profile</router-link>
+              <router-link :to="{ name: 'UsersForm', params:{ id: decoded._id } }" class="nav-link dropdown-nav-link">My profile</router-link>
             </b-dropdown-item>
 
             <b-dropdown-item href="#" @click="logout()">
-              <router-link :to="{ name: 'userEdit' }" class="nav-link dropdown-nav-link">
+              <div class="nav-link dropdown-nav-link">
                 Logout
                 <font-awesome-icon icon="sign-out-alt" />
-              </router-link>
+              </div>
             </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-nav-item>
@@ -75,8 +75,19 @@
 
       <b-navbar-nav>
         <b-nav-item class="nomargin">
-          <router-link to="/" class="navbar-brand nomargin">
-            <b-img rounded="circle" blank width="55" style="" height="55" blank-color="#777" alt="My profile" title="My profile" class="m-1 nomargin" />
+          <router-link :to="{ name: 'UsersForm', params:{ id: decoded._id } }" class="navbar-brand nomargin">
+            <img 
+              rounded="circle" 
+              blank 
+              width="55" 
+              style="" 
+              height="55" 
+              blank-color="#777" 
+              alt="My profile" 
+              title="My profile" 
+              class="m-1 nomargin rounded-circle img"
+              :src="getFile()" 
+            >
           </router-link>
         </b-nav-item>
       </b-navbar-nav>
@@ -96,12 +107,26 @@ export default {
       links: [],
       breadcrumb: '',
       token: {},
+      api: '',
+      decoded: '',
     };
   },
   methods: {
     logout() {
       this.$store.commit('user_logout');
     },
+    getFile() {
+      if (this.decoded) {
+        let file = `${this.api}/api/v1/upload?`;
+        file += `token=${this.token}`;
+        file += `&mimetype=${this.decoded.avatar.mimetype}`;
+        file += `&filename=${this.decoded.avatar.filename}`;
+        file += `&folder=${this.decoded.avatar.folder}`;
+        return file; 
+      } else {
+        return '';
+      }
+    }
   },
   computed: {
     isLogged() {
@@ -109,9 +134,10 @@ export default {
     },
   },
   mounted() {
+    this.api = process.env.VUE_APP_API;
     this.links = this.$router.options.routes;
-    // this.token = this.$store.getters.authToken;
-    // console.log(this.$store.getters.authToken);
+    this.decoded = jwtDecode(this.$store.getters.authToken);
+    this.token = this.$store.getters.authToken;
   },
   watch: {
     '$route' (to, from) {

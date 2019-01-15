@@ -11,4 +11,6 @@ const upload = multer({ dest: `${config.uploadPath}/temp`}); // multer dont let 
 
 rotas.post('/', upload.single('file'), controller.upload); // single file upload
 
+rotas.get('/', controller.getFile);
+
 module.exports = rotas;

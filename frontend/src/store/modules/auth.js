@@ -3,7 +3,7 @@ import app from './../../main';
 import main from './../../main';
 
 const state = {
-  AUTH_TOKEN: !!ls('token'),
+  AUTH_TOKEN: ls('token'),
 };
 
 const mutations = {
