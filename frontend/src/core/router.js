@@ -31,6 +31,19 @@ const UsersForm = (resolve) => {
   });
 };
 
+// CLIENTS
+const Clients = (resolve) => {
+  require.ensure(['./../components/client/Home.vue'], () => {
+    resolve(require('././../components/client/Home.vue'));
+  });
+};
+
+const ClientsForm = (resolve) => {
+  require.ensure(['./../components/client/Form.vue'], () => {
+    resolve(require('././../components/client/Form.vue'));
+  });
+};
+
 /* eslint-enable global-require */
 
 
@@ -88,6 +101,39 @@ const router = new Router({
           meta: {
             humanName: 'Form',
             pathAlias: 'Users / Form',
+            showOnNav: true,
+          },
+        },
+      ],
+    },
+    {
+      path: '/clients',
+      component: {
+        render(c) { return c('router-view') } /// then I dont need a parent component file
+      },
+      meta: {
+        humanName: 'Clients',
+        showOnNav: true,
+      },
+      children: [
+        {
+          path: '',
+          name: 'Clients',
+          component: Clients,
+          meta: {
+            humanName: 'List',
+            pathAlias: 'Clients / List',
+            showOnNav: true,
+          },
+        },
+        {
+          path: 'form/:id?',
+          props: true, // pass paramas as props, then you dont need to use $watch
+          name: 'ClientsForm',
+          component: ClientsForm,
+          meta: {
+            humanName: 'Form',
+            pathAlias: 'Clients / Form',
             showOnNav: true,
           },
         },

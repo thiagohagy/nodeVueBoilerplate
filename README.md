@@ -1,7 +1,5 @@
 VueBase is a Boilerplate for vuejs, a quick way to create administrative systems with login and password already built with jwt
 
-
-
 # Technologies
 
 * Backend in nodejs
