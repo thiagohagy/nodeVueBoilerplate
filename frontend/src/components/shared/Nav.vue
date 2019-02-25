@@ -76,17 +76,17 @@
       <b-navbar-nav>
         <b-nav-item class="nomargin">
           <router-link :to="{ name: 'UsersForm', params:{ id: decoded._id } }" class="navbar-brand nomargin">
-            <img 
-              rounded="circle" 
-              blank 
-              width="55" 
-              style="" 
-              height="55" 
-              blank-color="#777" 
-              alt="My profile" 
-              title="My profile" 
+            <img
+              rounded="circle"
+              blank
+              width="55"
+              style=""
+              height="55"
+              blank-color="#777"
+              alt="My profile"
+              title="My profile"
               class="m-1 nomargin rounded-circle img"
-              :src="getFile()" 
+              :src="getFile()"
             >
           </router-link>
         </b-nav-item>
@@ -122,7 +122,9 @@ export default {
         file += `&mimetype=${this.decoded.avatar.mimetype}`;
         file += `&filename=${this.decoded.avatar.filename}`;
         file += `&folder=${this.decoded.avatar.folder}`;
-        return file; 
+
+        console.log(file);
+        return file;
       } else {
         return '';
       }

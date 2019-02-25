@@ -5,14 +5,20 @@ const to = require('../../core/to');
 
 /* Routes*/
 exports.index = async (req, res) => {
+
+  const filtro = {};
+  console.log(req.body);
+  if(req.body.busca) filtro.login= { $regex: req.body.busca };
+  filtro.active = true;
+
   const [err, data] = await to(
-    Model.find()
-      .deepPopulate('cliente createdBy lastUpdateBy')
+    Model.find(filtro)
+      .populate('cliente')
       .skip(req.body.skip || 0)
-      .limit(req.body.limit || 50)
+      .limit(req.body.limit || 5)
   );
 
-  const total = await Model.find().count();
+  const total = await Model.find(filtro).count();
 
   res.json({ total, data });
 };
@@ -39,8 +45,16 @@ exports.new = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  const data = await Model.remove({ _id: req.params.id });
-  res.json(data);
+
+  const model = await Model.findOne({ _id: req.params.id });
+
+  if (model) {
+    model.active = false;
+    await model.save();
+    res.json({ success: true });
+  } else {
+    res.json({ success: false, err: 'An error has occured'});
+  }
 };
 
 exports.edit = async (req, res) => {
@@ -56,6 +70,7 @@ exports.edit = async (req, res) => {
   model.name = req.body.name;
   model.role = req.body.role;
   model.lastUpdateBy = req.decoded._id;
+  model.avatar = req.body.avatar;
 
   const [err, data] = await to(model.save());
 

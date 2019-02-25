@@ -5,7 +5,7 @@
       <h3>{{ pageTitle }}</h3>
     </div>
 
-    <b-form @submit.prevent="onSubmit">
+    <form>
 
       <div class="row">
         <div class="col-9">
@@ -39,6 +39,7 @@
               </div>
             </vue-dropzone>
           </b-form-group>
+          <b-alert show variant="info" v-if="form._id">Dont select any to keep the same</b-alert>
         </div>
       </div>
 
@@ -51,7 +52,10 @@
           <b-form-input id="passwordC" type="password" v-model="form.passwordC" placeholder="An equally complex password"
           :state="(form.password == form.passwordC) && form.password != ''"  class="error"></b-form-input>
         </b-form-group>
+
       </div>
+
+      <b-alert show variant="info" v-if="form._id">Let it blank to keep the same password</b-alert>
 
       <div class="row">
         <b-form-group id="roleLabel" class="col" label="User role:" label-for="role" >
@@ -61,12 +65,14 @@
 
 
       <div class="text-center">
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger"  >
-           <router-link to="/users">Cancel</router-link>
-        </b-button>
+        <b-button type="button" variant="primary" @click="onSubmit" >Submit</b-button>
+        <router-link to="/users">
+          <b-button type="reset" variant="danger"  >
+            Cancel
+          </b-button>
+        </router-link>
       </div>
-    </b-form>
+    </form>
   </div>
 
 </template>
@@ -125,29 +131,52 @@
         formData.append('folder', 'avatar'); // add field to upload form
       },
       async onSubmit(){
-        if (
-          this.form.email &&
-          this.form.login &&
-          (this.form.password && this.form.password == this.form.passwordC) &&
-          this.form.role
-        ) {
-          let response = await this.$http.post('v1/users', this.form); // request with async await
+        if (this.form._id) {
+           if ( this.form.email && this.form.login && this.form.role ) {
+            let response = await this.$http.put('v1/users', this.form); // request with async await
 
-          if (response.success) {
-            this.$toasted.show('Registrarion completed with success',{icon:'check', type: 'success'});
-            this.form = {};
+            if (response.success) {
+              this.$toasted.show('User edited with success',{icon:'check', type: 'success'});
+              this.$router.push({name: "Users"});
+            } else {
+              this.$toasted.show(response.err ,{icon:'times', type: 'error'});
+            }
           } else {
-            this.$toasted.show(response.err ,{icon:'times', type: 'error'});
+            this.$toasted.show('Inform  email, role, login and password. Password and passord confirm must be equals',{icon:'times', type: 'error'})
           }
         } else {
-          this.$toasted.show('Inform  email, role, login and password. Password and passord confirm must be equals',{icon:'times', type: 'error'})
+
+          if (
+            this.form.email &&
+            this.form.login &&
+            (this.form.password && this.form.password == this.form.passwordC) &&
+            this.form.role
+          ) {
+            let response = await this.$http.post('v1/users', this.form); // request with async await
+
+            if (response.success) {
+              this.$toasted.show('Registrarion completed with success',{icon:'check', type: 'success'});
+              this.$router.push({name: "Users"});
+            } else {
+              this.$toasted.show(response.err ,{icon:'times', type: 'error'});
+            }
+          } else {
+            this.$toasted.show('Inform  email, role, login and password. Password and passord confirm must be equals',{icon:'times', type: 'error'})
+          }
         }
       },
     },
-    mounted(){
+    async mounted() {
       console.log(this.id);
       if (this.id) {
         this.pageTitle =  'User edit';
+        let response = await this.$http.get(`/v1/users/${this.id}`);
+        if (response._id) {
+          delete response.password;
+          this.form = this.form = response;
+        } else {
+          this.$toasted.show('An error has ocurred' ,{icon:'times', type: 'error'});
+        }
       }
     },
     components: {

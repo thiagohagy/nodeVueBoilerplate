@@ -12,12 +12,6 @@ const Home = (resolve) => {
   });
 };
 
-const About = (resolve) => {
-  require.ensure(['./../components/About.vue'], () => {
-    resolve(require('././../components/About.vue'));
-  });
-};
-
 const Login = (resolve) => {
   require.ensure(['./../components/auth/Login.vue'], () => {
     resolve(require('././../components/auth/Login.vue'));
@@ -54,16 +48,6 @@ const router = new Router({
       meta: {
         humanName: 'Home',
         pathAlias: 'Home',
-        showOnNav: true,
-      },
-    },
-    {
-      path: '/about',
-      name: 'About',
-      component: About,
-      meta: {
-        humanName: 'About',
-        pathAlias: 'Home / About',
         showOnNav: true,
       },
     },
@@ -106,7 +90,7 @@ const router = new Router({
             pathAlias: 'Users / Form',
             showOnNav: true,
           },
-        },      
+        },
       ],
     },
   ],
