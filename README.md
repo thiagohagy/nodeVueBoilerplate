@@ -1,14 +1,25 @@
 VueBase is a Boilerplate for vuejs, a quick way to create administrative systems with login and password already built with jwt
 
+
+
 # Technologies
 
 * Backend in nodejs
-* Frontend in javascript (Vuejs) with BootstrapVue
+* Frontend in javascript (Vuejs) and BootstrapVue
 
 # Support
 
 * Uploads with authenticated routes
 * Https
+
+# Features
+
+* Generic components on frontend: Nav, Pagination, CrudHeader and AlertMessage
+* Global Mixin
+* Complete user and client CRUD (User with upload, we are using Multer on backend )
+* Authentication using Vuex
+* Http with axios
+* VueRouter for route manage
 
 login: _admin_, password: _admin_
 
