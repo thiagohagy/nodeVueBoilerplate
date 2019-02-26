@@ -41,6 +41,7 @@ app.use('/api/v1', jwt);
 jwt.use('/upload', require('./app/upload'));
 
 jwt.use('/users', require('./app/usuario'));
+jwt.use('/clients', require('./app/client'));
 
 var id = Number(process.env.id);
 var hit = 0;

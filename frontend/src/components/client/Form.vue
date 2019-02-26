@@ -49,7 +49,7 @@
 
             if (response.success) {
               this.$toasted.show('Client edited with success',{icon:'check', type: 'success'});
-              this.$router.push({name: "Users"});
+              this.$router.push({name: "Clients"});
             } else {
               this.$toasted.show(response.err ,{icon:'times', type: 'error'});
             }
@@ -63,7 +63,7 @@
 
             if (response.success) {
               this.$toasted.show('Registrarion completed with success',{icon:'check', type: 'success'});
-              this.$router.push({name: "Users"});
+              this.$router.push({name: "Clients"});
             } else {
               this.$toasted.show(response.err ,{icon:'times', type: 'error'});
             }

@@ -21,6 +21,7 @@
                   >
                   </b-form-checkbox>
                   </th>
+                <th scope="col">Client</th>
                 <th scope="col">Login</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
@@ -34,6 +35,11 @@
                     v-model="item.selected"
                   >
                   </b-form-checkbox>
+                </td>
+                <td>
+                  <span v-if="item.client">
+                    {{item.client.name}}
+                  </span>
                 </td>
                 <td>{{item.login}}</td>
                 <td>{{item.email}}</td>

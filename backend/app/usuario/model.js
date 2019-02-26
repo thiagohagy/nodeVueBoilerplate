@@ -14,6 +14,10 @@ const Schema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Usuario'
   },
+  client: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Client'
+  },
   password: String,
   name: String,
   role: String,

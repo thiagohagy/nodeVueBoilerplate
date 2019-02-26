@@ -25,10 +25,10 @@ export default {
   components: {
     // HelloWorld,
   },
-  mounted(){
-    this.$toasted.show('Error toast',{icon:'times', type: 'error'})
-    this.$toasted.show('Success toast',{icon:'check', type: 'success'})
-    this.$toasted.show('Info toast',{icon:'info', type: 'info'})
-  }
+  mounted() {
+    this.$toasted.show('Error toast', { icon: 'times', type: 'error' });
+    this.$toasted.show('Success toast', { icon: 'check', type: 'success' });
+    this.$toasted.show('Info toast', { icon: 'info', type: 'info' });
+  },
 };
 </script>
